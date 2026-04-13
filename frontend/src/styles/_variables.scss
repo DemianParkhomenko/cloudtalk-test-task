@@ -1,0 +1,83 @@
+// Colors
+$color-primary: #5b3a29;
+$color-primary-hover: #4b3022;
+$color-primary-light: #efe5dc;
+$color-danger: #d93025;
+$color-danger-hover: #b52b1e;
+$color-success: #188038;
+$color-warning: #f9ab00;
+
+// Text
+$color-text-primary: #2b1f17;
+$color-text-secondary: #6f5a4c;
+$color-text-disabled: #a89689;
+$color-text-on-primary: #ffffff;
+
+// Background
+$color-bg-primary: #f6f2ee;
+$color-bg-secondary: #fffdfb;
+$color-bg-hover: #efe7df;
+$color-bg-active: #e6dacf;
+$color-bg-sidebar: #fbf6f1;
+$color-bg-auth-gradient-start: #f3e7db;
+$color-bg-auth-gradient-mid: #f6f2ee;
+$color-bg-auth-gradient-end: #ecded1;
+
+// Border
+$color-border: #dfd2c7;
+$color-border-focus: #5b3a29;
+$color-border-light: #efe7df;
+
+// Shadows
+$shadow-sm: 0 1px 2px rgba(43, 31, 23, 0.08);
+$shadow-md: 0 2px 6px rgba(43, 31, 23, 0.14);
+$shadow-lg: 0 6px 16px rgba(43, 31, 23, 0.16);
+$shadow-modal: 0 10px 28px rgba(43, 31, 23, 0.2);
+
+// Typography
+$font-family-base: 'Manrope', 'Avenir Next', 'Segoe UI', sans-serif;
+$font-size-xs: 0.75rem; // 12px
+$font-size-sm: 0.875rem; // 14px
+$font-size-base: 1rem; // 16px
+$font-size-lg: 1.125rem; // 18px
+$font-size-xl: 1.25rem; // 20px
+$font-size-2xl: 1.5rem; // 24px
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$line-height-base: 1.5;
+$line-height-tight: 1.25;
+
+// Spacing
+$spacing-1: 0.25rem; // 4px
+$spacing-2: 0.5rem; // 8px
+$spacing-3: 0.75rem; // 12px
+$spacing-4: 1rem; // 16px
+$spacing-5: 1.25rem; // 20px
+$spacing-6: 1.5rem; // 24px
+$spacing-8: 2rem; // 32px
+$spacing-10: 2.5rem; // 40px
+$spacing-12: 3rem; // 48px
+
+// Layout
+$sidebar-width: 256px;
+$column-width: 280px;
+$column-min-width: 240px;
+$header-height: 64px;
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-full: 9999px;
+
+// Transitions
+$transition-fast: 150ms ease;
+$transition-base: 200ms ease;
+$transition-slow: 300ms ease;
+
+// Z-index layers
+$z-index-dropdown: 100;
+$z-index-sticky: 200;
+$z-index-overlay: 300;
+$z-index-modal: 400;
+$z-index-toast: 500;

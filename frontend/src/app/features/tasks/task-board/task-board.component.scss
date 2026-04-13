@@ -1,0 +1,111 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.board {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+
+  &__header {
+    @include flex-between;
+    height: $header-height;
+    padding: 0 $spacing-4;
+    background-color: $color-bg-secondary;
+    border-bottom: 1px solid $color-border;
+    flex-shrink: 0;
+    z-index: $z-index-sticky;
+  }
+
+  &__header-left {
+    @include flex-start;
+    gap: $spacing-3;
+  }
+
+  &__header-right {
+    @include flex-start;
+    gap: $spacing-3;
+  }
+
+  &__logo {
+    flex-shrink: 0;
+  }
+
+  &__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+  }
+
+  &__user-email {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+  }
+
+  &__body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  &__main {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__columns {
+    display: flex;
+    gap: $spacing-4;
+    padding: $spacing-6;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 100%;
+    align-items: flex-start;
+    @include custom-scrollbar;
+
+    &--empty {
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+  }
+
+  &__column-item {
+    flex-shrink: 0;
+  }
+
+  &__empty {
+    @include flex-center;
+    flex-direction: column;
+    gap: $spacing-4;
+    min-width: 320px;
+    height: auto;
+    color: $color-text-secondary;
+    text-align: center;
+
+    h2 {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-semibold;
+      color: $color-text-primary;
+    }
+
+    p {
+      font-size: $font-size-sm;
+    }
+  }
+}
+
+.board__column-item.cdk-drag-preview {
+  box-shadow: $shadow-lg;
+  border-radius: $border-radius-lg;
+}
+
+.board__column-item.cdk-drag-placeholder {
+  opacity: 0.35;
+}
+
+.board__columns.cdk-drop-list-dragging .board__column-item:not(.cdk-drag-placeholder) {
+  transition: transform $transition-fast;
+}

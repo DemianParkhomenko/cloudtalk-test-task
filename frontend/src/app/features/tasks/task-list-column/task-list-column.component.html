@@ -1,0 +1,130 @@
+<div class="column">
+  <!-- Column Header -->
+  <div class="column__header">
+    <div
+      class="column__drag-handle"
+      cdkDragHandle
+      aria-label="Reorder list"
+      title="Drag to reorder list"
+    >
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <circle cx="9" cy="7" r="1" fill="currentColor" />
+        <circle cx="15" cy="7" r="1" fill="currentColor" />
+        <circle cx="9" cy="12" r="1" fill="currentColor" />
+        <circle cx="15" cy="12" r="1" fill="currentColor" />
+        <circle cx="9" cy="17" r="1" fill="currentColor" />
+        <circle cx="15" cy="17" r="1" fill="currentColor" />
+      </svg>
+    </div>
+    <h2 class="column__title">{{ list().name }}</h2>
+    <app-dropdown-menu [items]="listMenuItems" (itemSelected)="onListMenuAction($event)">
+      <button trigger type="button" class="column__menu-btn" aria-label="List options">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="12" cy="5" r="1" />
+          <circle cx="12" cy="12" r="1" />
+          <circle cx="12" cy="19" r="1" />
+        </svg>
+      </button>
+    </app-dropdown-menu>
+  </div>
+
+  <!-- Add task area -->
+  <div class="column__create">
+    @if (showCreateTask()) {
+    <app-task-create-inline
+      (taskCreated)="onTaskCreated($event)"
+      (cancelled)="showCreateTask.set(false)"
+    />
+    }
+    @if (!showCreateTask()) {
+    <button
+      type="button"
+      class="column__add-btn"
+      (click)="showCreateTask.set(true)"
+    >
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <line x1="12" y1="5" x2="12" y2="19" />
+        <line x1="5" y1="12" x2="19" y2="12" />
+      </svg>
+      Add a task
+    </button>
+    }
+  </div>
+
+  <!-- Tasks drop zone -->
+  <div
+    class="column__tasks"
+    [class.column__tasks--drop-active]="isDropActive()"
+    cdkDropList
+    [id]="dropListId"
+    [cdkDropListData]="tasks()"
+    [cdkDropListConnectedTo]="connectedLists"
+    (cdkDropListEntered)="onDropListEntered()"
+    (cdkDropListExited)="onDropListExited()"
+    (cdkDropListDropped)="onDrop($event)"
+  >
+    @for (task of tasks(); track task.id) {
+      <app-task-item
+        [task]="task"
+        [allLists]="allLists()"
+        cdkDrag
+        [cdkDragData]="task"
+        (cdkDragStarted)="onTaskDragStarted(task.id)"
+        (cdkDragEnded)="onTaskDragEnded()"
+        (taskCompleted)="onTaskCompleted($event)"
+        (taskEdit)="editingTask.set($event)"
+        (taskDeleted)="onTaskDeleted($event)"
+        (taskMoved)="onTaskMoved($event)"
+      >
+        <div class="task-drag-placeholder" *cdkDragPlaceholder></div>
+      </app-task-item>
+    }
+
+    <!-- Empty list state -->
+    @if (tasks().length === 0) {
+    <div class="column__empty">No tasks yet</div>
+    }
+  </div>
+</div>
+
+<!-- Edit task modal -->
+@if (editingTask()) {
+<app-task-modal
+  [task]="editingTask()!"
+  [allLists]="allLists()"
+  (save)="onTaskEdited($event)"
+  (dismissed)="editingTask.set(null)"
+  (taskMoved)="onTaskMoved($event)"
+/>
+}
+
+<!-- Rename list modal -->
+@if (showEditListModal()) {
+<app-task-list-modal
+  [mode]="'edit'"
+  [initialName]="list().name"
+  (save)="onListRenamed($event)"
+  (dismissed)="showEditListModal.set(false)"
+/>
+}

@@ -1,0 +1,48 @@
+<app-modal
+  title="Edit task"
+  confirmLabel="Save"
+  [confirmDisabled]="form.invalid"
+  [confirmLoading]="loading()"
+  (dismissed)="dismissed.emit()"
+  (confirm)="onSave()"
+>
+  <form [formGroup]="form" class="task-form">
+    <div class="task-form__complete-row">
+      <app-checkbox
+        [checked]="form.get('completed')?.value ?? false"
+        label="Mark complete"
+        (checkedChange)="toggleCompleted()"
+      />
+      <span class="task-form__complete-label">
+        {{ form.get('completed')?.value ? 'Completed' : 'Mark as complete' }}
+      </span>
+    </div>
+
+    <app-input
+      label="Title"
+      type="text"
+      placeholder="Task title"
+      formControlName="title"
+      [error]="titleError"
+    />
+
+    <app-input label="Notes" type="textarea" placeholder="Add details..." formControlName="notes" />
+
+    @if (otherLists.length > 0) {
+    <div class="task-form__move">
+      <label class="task-form__move-label">Move to list</label>
+      <div class="task-form__move-buttons">
+        @for (list of otherLists; track list.id) {
+        <button
+          type="button"
+          class="task-form__move-btn"
+          (click)="onMove(list.id)"
+        >
+          {{ list.name }}
+        </button>
+        }
+      </div>
+    </div>
+    }
+  </form>
+</app-modal>

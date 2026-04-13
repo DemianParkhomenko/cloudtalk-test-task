@@ -1,0 +1,24 @@
+{
+  "name": "todo-e2e",
+  "version": "1.0.0",
+  "description": "E2E tests for Todo App",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:api:raw": "tsx --test tests/api/**/*.test.ts",
+    "test:ui:raw": "playwright test --project=ui",
+    "test:api": "node scripts/run-tests.mjs api",
+    "test:ui": "node scripts/run-tests.mjs ui",
+    "test": "npm run test:api && npm run test:ui",
+    "playwright:install": "playwright install chromium"
+  },
+  "dependencies": {
+    "todo-sdk": "file:../sdk"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.1",
+    "@types/node": "^24.12.2",
+    "tsx": "^4.21.0",
+    "typescript": "~5.9.3"
+  }
+}

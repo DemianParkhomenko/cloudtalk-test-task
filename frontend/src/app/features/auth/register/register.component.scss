@@ -1,0 +1,70 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.auth-page {
+  min-height: 100vh;
+  @include flex-center;
+  background: linear-gradient(
+    135deg,
+    $color-bg-auth-gradient-start 0%,
+    $color-bg-auth-gradient-mid 50%,
+    $color-bg-auth-gradient-end 100%
+  );
+  padding: $spacing-4;
+}
+
+.auth-card {
+  @include card;
+  width: 100%;
+  max-width: 400px;
+  padding: $spacing-8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-4;
+
+  &__logo {
+    margin-bottom: $spacing-2;
+  }
+
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    text-align: center;
+  }
+
+  &__subtitle {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-align: center;
+    margin-top: -$spacing-2;
+  }
+
+  &__footer {
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    text-align: center;
+
+    a {
+      color: $color-primary;
+      font-weight: $font-weight-medium;
+    }
+  }
+}
+
+.auth-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+
+  &__error {
+    font-size: $font-size-sm;
+    color: $color-danger;
+    text-align: center;
+    padding: $spacing-2 $spacing-3;
+    background-color: rgba($color-danger, 0.08);
+    border-radius: $border-radius-sm;
+  }
+}

@@ -1,0 +1,54 @@
+<div
+  class="task-item"
+  [class.task-item--completed]="task().completed"
+  [attr.data-task-id]="task().id"
+>
+  <div class="task-item__drag-handle" cdkDragHandle aria-hidden="true">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <circle cx="9" cy="7" r="1" fill="currentColor" />
+      <circle cx="15" cy="7" r="1" fill="currentColor" />
+      <circle cx="9" cy="12" r="1" fill="currentColor" />
+      <circle cx="15" cy="12" r="1" fill="currentColor" />
+      <circle cx="9" cy="17" r="1" fill="currentColor" />
+      <circle cx="15" cy="17" r="1" fill="currentColor" />
+    </svg>
+  </div>
+
+  <app-checkbox
+    [checked]="task().completed"
+    [label]="task().completed ? 'Mark incomplete' : 'Mark complete'"
+    (checkedChange)="taskCompleted.emit(task())"
+  />
+
+  <div class="task-item__content" (click)="taskEdit.emit(task())">
+    <span class="task-item__title">{{ task().title }}</span>
+    @if (task().notes) {
+    <span class="task-item__notes">{{ task().notes }}</span>
+    }
+  </div>
+
+  <app-dropdown-menu [items]="menuItems" (itemSelected)="onMenuAction($event)">
+    <button trigger type="button" class="task-item__menu-btn" aria-label="Task options">
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <circle cx="12" cy="5" r="1" />
+        <circle cx="12" cy="12" r="1" />
+        <circle cx="12" cy="19" r="1" />
+      </svg>
+    </button>
+  </app-dropdown-menu>
+</div>
+<ng-content />

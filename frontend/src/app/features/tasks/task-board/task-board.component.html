@@ -1,0 +1,87 @@
+<div class="board">
+  <!-- Header -->
+  <header class="board__header">
+    <div class="board__header-left">
+      <svg width="28" height="28" viewBox="0 0 40 40" fill="none" class="board__logo">
+        <rect width="40" height="40" rx="8" fill="#5b3a29" />
+        <path
+          d="M12 20l5 5 11-11"
+          stroke="white"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <h1 class="board__title">Todo list</h1>
+    </div>
+    <div class="board__header-right">
+      <span class="board__user-email">{{ currentUser()?.email }}</span>
+      <app-button variant="ghost" (click)="logout()"> Sign out </app-button>
+    </div>
+  </header>
+
+  <div class="board__body">
+    <!-- Sidebar -->
+    <app-task-list-sidebar
+      [lists]="lists()"
+      [activeListId]="activeListId()"
+      (listSelected)="onListSelected($event)"
+      (createList)="showCreateListModal.set(true)"
+    />
+
+    <!-- Main columns area -->
+    <main class="board__main">
+      <div
+        class="board__columns"
+        [class.board__columns--empty]="lists().length === 0"
+        cdkDropList
+        cdkDropListOrientation="horizontal"
+        [cdkDropListData]="lists()"
+        (cdkDropListDropped)="onColumnsDropped($event)"
+      >
+        @for (list of lists(); track list.id) {
+        <app-task-list-column
+          cdkDrag
+          class="board__column-item"
+          [cdkDragData]="list"
+          [id]="'list-column-' + list.id"
+          [list]="list"
+          [tasks]="tasksByList().get(list.id) ?? []"
+          [allLists]="lists()"
+          (listDeleted)="onListDeleted($event)"
+        />
+        }
+
+        <!-- Empty state -->
+        @if (lists().length === 0) {
+        <div class="board__empty">
+          <svg
+            width="64"
+            height="64"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#a89689"
+            stroke-width="1.5"
+          >
+            <path d="M9 11l3 3 8-8M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
+          </svg>
+          <h2>No task lists yet</h2>
+          <p>Create your first list to get started</p>
+          <app-button variant="primary" (click)="showCreateListModal.set(true)">
+            Create a list
+          </app-button>
+        </div>
+        }
+      </div>
+    </main>
+  </div>
+
+  <!-- Create list modal -->
+  @if (showCreateListModal()) {
+  <app-task-list-modal
+    [mode]="'create'"
+    (save)="onListCreated($event)"
+    (dismissed)="showCreateListModal.set(false)"
+  />
+  }
+</div>

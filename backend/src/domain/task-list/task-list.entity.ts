@@ -1,0 +1,8 @@
+export interface TaskList {
+  id: string;
+  name: string;
+  order: number;
+  userId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}

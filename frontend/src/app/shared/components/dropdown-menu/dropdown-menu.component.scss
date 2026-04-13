@@ -1,0 +1,100 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.dropdown {
+  position: relative;
+  display: inline-flex;
+
+  &__trigger {
+    @include button-reset;
+
+    border-radius: $border-radius-full;
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background-color: $color-bg-hover;
+    }
+  }
+
+  &__menu {
+    position: relative;
+    margin: 0;
+    padding: $spacing-1;
+    list-style: none;
+    background-color: $color-bg-secondary;
+    border: 1px solid $color-border;
+    border-radius: $border-radius-md;
+    box-shadow: $shadow-lg;
+    min-width: 190px;
+    animation: menuSlideDown $transition-base;
+    transform-origin: top right;
+  }
+
+  &__item {
+    margin: 0;
+
+    & + & {
+      margin-top: 2px;
+    }
+  }
+
+  &__item-btn {
+    @include button-reset;
+
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: $spacing-2;
+    padding: $spacing-2 $spacing-3;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    text-align: left;
+    line-height: $line-height-base;
+    transition:
+      background-color $transition-fast,
+      color $transition-fast;
+
+    &:hover {
+      background-color: $color-bg-hover;
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba($color-primary, 0.45);
+      outline-offset: -1px;
+      background-color: $color-primary-light;
+    }
+
+    &--danger {
+      color: $color-danger;
+    }
+  }
+
+  &__item--danger {
+    .dropdown__item-btn {
+      color: $color-danger;
+
+      &:hover {
+        background-color: rgba($color-danger, 0.08);
+      }
+
+      &:focus-visible {
+        outline-color: rgba($color-danger, 0.45);
+        background-color: rgba($color-danger, 0.1);
+      }
+    }
+  }
+}
+
+@keyframes menuSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
