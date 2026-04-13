@@ -1,0 +1,50 @@
+<aside class="sidebar">
+  <div class="sidebar__top-actions">
+    <button class="sidebar__create-btn" (click)="createList.emit()">
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <line x1="12" y1="5" x2="12" y2="19" />
+        <line x1="5" y1="12" x2="19" y2="12" />
+      </svg>
+      Create new list
+    </button>
+  </div>
+
+  <nav class="sidebar__nav">
+    <h2 class="sidebar__heading">My lists</h2>
+    <ul class="sidebar__list">
+      @for (list of lists(); track list.id) {
+      <li
+        class="sidebar__item"
+        [attr.data-list-id]="list.id"
+      >
+        <button
+          type="button"
+          class="sidebar__item-btn"
+          [class.sidebar__item-btn--active]="list.id === activeListId()"
+          [attr.aria-current]="list.id === activeListId() ? 'page' : null"
+          (click)="listSelected.emit(list.id)"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M9 11l3 3 8-8M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
+          </svg>
+          <span class="sidebar__item-name">{{ list.name }}</span>
+        </button>
+      </li>
+      }
+    </ul>
+  </nav>
+</aside>

@@ -1,0 +1,33 @@
+{
+  "name": "cloudtalk-test-task",
+  "version": "1.0.0",
+  "description": "Todo App - Full Stack (NestJS + Angular)",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend",
+    "e2e",
+    "sdk"
+  ],
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install && cd ../e2e && npm install",
+    "start:backend": "cd backend && npm run start:dev",
+    "start:frontend": "cd frontend && npm start",
+    "db:up": "docker-compose up -d",
+    "db:migrate": "cd backend && npm run db:migrate",
+    "generate:sdk": "cd backend && npm run generate:sdk",
+    "test:api": "cd e2e && npm run test:api",
+    "test:ui": "cd e2e && npm run test:ui",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "angular-eslint": "^21.3.1",
+    "eslint": "^10.2.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.2",
+    "typescript-eslint": "^8.58.1"
+  }
+}

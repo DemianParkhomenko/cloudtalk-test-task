@@ -1,0 +1,142 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.column {
+  @include card;
+  width: $column-width;
+  min-width: $column-min-width;
+  max-height: calc(100vh - #{$header-height} - #{$spacing-12});
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+
+  &__header {
+    @include flex-between;
+    padding: $spacing-4 $spacing-4 $spacing-3;
+    border-bottom: 1px solid $color-border-light;
+    flex-shrink: 0;
+    gap: $spacing-2;
+  }
+
+  &__drag-handle {
+    @include flex-center;
+    width: 24px;
+    height: 24px;
+    border-radius: $border-radius-md;
+    color: $color-text-disabled;
+    cursor: grab;
+    flex-shrink: 0;
+    transition:
+      background-color $transition-fast,
+      color $transition-fast;
+
+    &:hover {
+      color: $color-text-primary;
+      background-color: $color-bg-hover;
+    }
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  &__title {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $color-text-primary;
+    @include truncate;
+    flex: 1;
+    margin-right: $spacing-2;
+  }
+
+  &__menu-btn {
+    @include button-reset;
+    @include flex-center;
+    width: 28px;
+    height: 28px;
+    border-radius: $border-radius-full;
+    color: $color-text-secondary;
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background-color: $color-bg-hover;
+      color: $color-text-primary;
+    }
+  }
+
+  &__create {
+    padding: $spacing-2 $spacing-2 $spacing-3;
+    border-bottom: 1px solid $color-border-light;
+    flex-shrink: 0;
+  }
+
+  &__tasks {
+    flex: 1;
+    overflow-y: auto;
+    padding: $spacing-2 $spacing-2;
+    min-height: 60px;
+    position: relative;
+    @include custom-scrollbar;
+
+    &.cdk-drop-list-dragging .task-item:not(.cdk-drag-placeholder) {
+      transition: transform $transition-fast;
+    }
+
+    &--drop-active {
+      background-color: rgba($color-primary, 0.04);
+    }
+
+    &.cdk-drop-list-receiving {
+      background-color: rgba($color-primary, 0.06);
+    }
+  }
+
+  &__empty {
+    padding: $spacing-6 $spacing-4;
+    text-align: center;
+    font-size: $font-size-sm;
+    color: $color-text-disabled;
+  }
+
+  &__add-btn {
+    @include button-reset;
+    @include flex-start;
+    gap: $spacing-2;
+    width: 100%;
+    padding: $spacing-2 $spacing-3;
+    border-radius: $border-radius-md;
+    font-size: $font-size-sm;
+    color: $color-text-secondary;
+    transition:
+      background-color $transition-fast,
+      color $transition-fast;
+
+    &:hover {
+      background-color: $color-bg-hover;
+      color: $color-primary;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+}
+
+.task-drag-placeholder {
+  height: 0;
+  margin: $spacing-2 0;
+  border-top: 2px solid $color-primary;
+  border-radius: $border-radius-full;
+  box-shadow: 0 0 0 2px rgba($color-primary, 0.14);
+}
+
+.cdk-drag-animating {
+  transition: transform $transition-base;
+}
+
+.cdk-drag-preview {
+  box-shadow: $shadow-lg;
+  border-radius: $border-radius-md;
+  background-color: $color-bg-secondary;
+  opacity: 0.9;
+}

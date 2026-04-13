@@ -1,0 +1,107 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/mixins' as *;
+
+.sidebar {
+  width: $sidebar-width;
+  min-width: $sidebar-width;
+  height: 100%;
+  background-color: $color-bg-sidebar;
+  border-right: 1px solid $color-border;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  &__top-actions {
+    padding: $spacing-3;
+    border-bottom: 1px solid $color-border;
+    flex-shrink: 0;
+  }
+
+  &__nav {
+    flex: 1;
+    padding: $spacing-4 $spacing-3;
+    overflow-y: auto;
+    @include custom-scrollbar;
+  }
+
+  &__heading {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $color-text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0 $spacing-2 $spacing-3;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__item {
+    list-style: none;
+  }
+
+  &__item-btn {
+    @include button-reset;
+    @include flex-start;
+    gap: $spacing-3;
+    width: 100%;
+    text-align: left;
+    padding: $spacing-2 $spacing-3;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    color: $color-text-secondary;
+    transition:
+      background-color $transition-fast,
+      color $transition-fast;
+    user-select: none;
+
+    &:hover {
+      background-color: $color-bg-hover;
+      color: $color-text-primary;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  &__item-btn--active {
+    background-color: $color-primary-light;
+    color: $color-primary;
+    font-weight: $font-weight-medium;
+
+    &:hover {
+      background-color: $color-primary-light;
+      color: $color-primary;
+    }
+  }
+
+  &__item-name {
+    @include truncate;
+    font-size: $font-size-sm;
+    flex: 1;
+  }
+
+  &__create-btn {
+    @include button-reset;
+    @include flex-start;
+    gap: $spacing-3;
+    width: 100%;
+    padding: $spacing-2 $spacing-3;
+    border-radius: $border-radius-md;
+    font-size: $font-size-sm;
+    color: $color-primary;
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background-color: $color-primary-light;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+}
